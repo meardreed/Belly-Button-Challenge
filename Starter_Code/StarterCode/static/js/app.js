@@ -4,7 +4,7 @@ let data ;
 // Fetch the JSON data and console log it
 d3.json(url).then(function(response) {
 data = response
-  console.log(data);
+  // console.log(data);
 init()
 
 });
@@ -45,12 +45,46 @@ function info(id) {
 function plot(id) {
     const samples = data.samples
     const result = samples.filter(dict => dict.id == id)[0];
+    const bar_x = result.sample_values.slice(0,10).reverse()
+    const bar_y= result.otu_ids.slice(0,10).map(otu_id => `OTU ${otu_id}`).reverse()
+    const bar_labels = result.otu_labels.slice(0,10).reverse()
     console.log(result)
+    // console.log(bar_x)
+    // console.log(bar_y)
+
+    const bar_data = [{
+      type: 'bar',
+      x: bar_x,
+      y: bar_y,
+      text: bar_labels,
+      orientation: 'h'
+    }];
+    
+    Plotly.newPlot('bar', bar_data);
+
+    const bubble_x = result.otu_ids
+    const bubble_y = result.sample_values
+    const bubble_labels = result.otu_labels
+
+    const bubble_data = [{
+      x: bubble_x,
+      y: bubble_y,
+      text: bubble_labels,
+      mode: 'markers',
+      marker: {
+        color: bubble_x,
+        size: bubble_y
+      }
+    }];
+
+    Plotly.newPlot('bubble', bubble_data);
+
 }
 
 
 function optionChanged(newid) {
-   console.log(newid)
+  //  console.log(newid)
    info(newid) 
    plot(newid)
 }
+
