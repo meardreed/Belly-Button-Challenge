@@ -28,7 +28,7 @@ function init() {
 function info(id) {
     const metadata = data.metadata
     const result = metadata.filter(dict => dict.id == id)[0];
-    // console.log(result)
+    console.log(result)
 
     let infoSection = d3.select("#sample-metadata");
     infoSection.html("")
@@ -40,6 +40,37 @@ function info(id) {
     infoSection.append("div").text(`bbtype: ${result.bbtype}`)
     infoSection.append("div").text(`wfreq: ${result.wfreq}`)
 
+
+       // create gauge chart
+
+    var gauge_data = [
+      {
+        domain: { x: [0, 1], y: [0, 1] },
+        value: result.wfreq,
+        title: { text: "Wash Frequency" },
+        type: "indicator",
+        mode: "gauge+number",
+        gauge: {
+          axis: { range: [null, 10], tickwidth: 1, tickcolor: "darkblue" },
+          bar: { color: "darkblue" },
+          bgcolor: "white",
+          borderwidth: 2,
+          bordercolor: "gray",
+          steps: [
+            { range: [0, 250], color: "cyan" },
+            { range: [250, 400], color: "royalblue" }
+          ],
+          // threshold: {
+          //   line: { color: "red", width: 4 },
+          //   thickness: 0.75,
+          //   value: 490
+          // }
+        }
+      }
+    ];
+    
+    var layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
+    Plotly.newPlot('gauge', gauge_data, layout);
 }
 
 function plot(id) {
@@ -52,6 +83,7 @@ function plot(id) {
     // console.log(bar_x)
     // console.log(bar_y)
 
+    // create bar chart
     const bar_data = [{
       type: 'bar',
       x: bar_x,
@@ -62,9 +94,12 @@ function plot(id) {
     
     Plotly.newPlot('bar', bar_data);
 
+
+     // creat bubble chart
     const bubble_x = result.otu_ids
     const bubble_y = result.sample_values
     const bubble_labels = result.otu_labels
+
 
     const bubble_data = [{
       x: bubble_x,
@@ -78,6 +113,8 @@ function plot(id) {
     }];
 
     Plotly.newPlot('bubble', bubble_data);
+
+ 
 
 }
 
