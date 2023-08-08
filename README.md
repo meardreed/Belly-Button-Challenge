@@ -9,3 +9,7 @@ while the rest were relatively rare.
 
 Click on the link below to access the dashboard:
 http://127.0.0.1:5500/index.html
+
+
+
+![bellybutton](https://github.com/meardreed/Belly-Button-Challenge/assets/124413887/19e90926-6446-4d53-84d3-192d1c6b76db)
