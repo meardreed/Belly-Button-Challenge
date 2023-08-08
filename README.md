@@ -8,6 +8,7 @@ while the rest were relatively rare.
 
 
 Click on any links below to access the dashboard:
+
 http://127.0.0.1:5500/index.html
 or
 https://meardreed.github.io/Belly-Button-Challenge/
